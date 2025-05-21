@@ -4,7 +4,7 @@ from distance import Point, calculate_total_distance
 
 def main():
     # Load and parse JSON file
-    file_path = "../data/points-1000000.json"
+    file_path = "../data/points-10000000.json"
     # file_path = "../data/points-10000000.json"
 
     s = datetime.now()

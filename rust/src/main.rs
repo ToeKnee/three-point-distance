@@ -19,7 +19,7 @@ use crate::distance::{Point, calculate_total_distance};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let now = Instant::now();
-    let path = "../data/points-1000000.json";
+    let path = "../data/points-10000000.json";
     // let path = "../data/points-1000000.json";
     // Load the list of Lat/Lng point triplets from a file
     // Open the file in read-only mode with buffer.
