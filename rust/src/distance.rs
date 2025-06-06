@@ -1,39 +1,14 @@
+//! This module provides functionality to calculate distances between geographical points
+//! using the Haversine formula.
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Debug)]
-pub struct Latitude(f64);
-impl Latitude {
-    fn from_value(value: f64) -> Result<Self, String> {
-        if !(-90.0..=90.0).contains(&value) {
-            return Err("Latitude must be between -90 and 90 degrees".to_string());
-        }
-        Ok(Self(value))
-    }
-
-    const fn value(&self) -> f64 {
-        self.0
-    }
-}
-
-#[derive(Serialize, Deserialize, Debug)]
-pub struct Longitude(f64);
-impl Longitude {
-    fn from_value(value: f64) -> Result<Self, String> {
-        if !(-180.0..=180.0).contains(&value) {
-            return Err("Longitude must be between -180 and 180 degrees".to_string());
-        }
-        Ok(Self(value))
-    }
-
-    const fn value(&self) -> f64 {
-        self.0
-    }
-}
-
+/// A geographical point represented by latitude and longitude.
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Point {
-    latitude: Latitude,
-    longitude: Longitude,
+    /// Latitude in degrees.
+    pub latitude: f64,
+    /// Longitude in degrees.
+    pub longitude: f64,
 }
 impl Point {
     /// Create a new Point with the given latitude and longitude.
@@ -41,32 +16,27 @@ impl Point {
     /// # Examples
     ///
     /// ```
-    /// use crate::distance::Point;
+    /// use three_point_distance::distance::Point;
     /// let point = Point::new(45.0, 90.0).unwrap();
-    /// assert_eq!(point.latitude(), 45.0);
-    /// assert_eq!(point.longitude(), 90.0);
+    /// assert_eq!(point.latitude, 45.0);
+    /// assert_eq!(point.longitude, 90.0);
     /// ```
     ///
     /// # Errors
     ///
     /// If the latitude or longitude is out of bounds, an error is returned.
     pub fn new(latitude: f64, longitude: f64) -> Result<Self, String> {
-        let lat = Latitude::from_value(latitude)?;
-        let lon = Longitude::from_value(longitude)?;
+        if !(-90.0..=90.0).contains(&latitude) {
+            return Err("Latitude must be between -90 and 90 degrees".to_string());
+        }
+        if !(-180.0..=180.0).contains(&longitude) {
+            return Err("Longitude must be between -180 and 180 degrees".to_string());
+        }
+
         Ok(Self {
-            latitude: lat,
-            longitude: lon,
+            latitude,
+            longitude,
         })
-    }
-
-    #[must_use]
-    pub const fn latitude(&self) -> f64 {
-        self.latitude.value()
-    }
-
-    #[must_use]
-    pub const fn longitude(&self) -> f64 {
-        self.longitude.value()
     }
 
     /// Calculate the distance between two points using the Haversine formula.
@@ -74,17 +44,20 @@ impl Point {
     /// # Examples
     ///
     /// ```
-    /// use crate::distance::Point;
+    /// use three_point_distance::distance::Point;
     /// let point = Point::new(52.5200, 13.4050).unwrap(); // Berlin
     /// let point2 = Point::new(48.8566, 2.3522).unwrap(); // Paris
-    /// assert_eq!(point.distance(&point2), 877.463);
+    /// const EXPECTED_ERROR: f64 = 0.1;
+    /// let expected_distance = 877.463;
+    /// let actual_distance = point.distance(&point2);
+    /// assert!((actual_distance - expected_distance).abs() < EXPECTED_ERROR);
     /// ```
     #[must_use]
     pub fn distance(&self, other: &Self) -> f64 {
-        let lat1 = self.latitude.value().to_radians();
-        let lon1 = self.longitude.value().to_radians();
-        let lat2 = other.latitude.value().to_radians();
-        let lon2 = other.longitude.value().to_radians();
+        let lat1 = self.latitude.to_radians();
+        let lon1 = self.longitude.to_radians();
+        let lat2 = other.latitude.to_radians();
+        let lon2 = other.longitude.to_radians();
 
         let dlat = lat2 - lat1;
         let dlon = lon2 - lon1;
@@ -99,11 +72,13 @@ impl Point {
     }
 }
 
+/// Calculate the distance between three points.
 #[must_use]
 pub fn calculate_distance(p1: &Point, p2: &Point, p3: &Point) -> f64 {
     p1.distance(p2) + p2.distance(p3)
 }
 
+/// Calculate the total distance for a list of triplets of points.
 #[must_use]
 pub fn calculate_total_distance(points: &[Vec<Point>]) -> f64 {
     let mut total_distance = 0.0;
@@ -131,23 +106,23 @@ mod tests {
 
     #[test]
     fn test_latitude() {
-        assert_equalish(Latitude::from_value(45.0).unwrap().value(), 45.0);
-        assert_equalish(Latitude::from_value(-90.0).unwrap().value(), -90.0);
-        assert!(Latitude::from_value(91.0).is_err());
+        assert_equalish(Point::new(45.0, 90.0).unwrap().latitude, 45.0);
+        assert_equalish(Point::new(-90.0, 90.0).unwrap().latitude, -90.0);
+        assert!(Point::new(91.0, 90.0).is_err());
     }
 
     #[test]
     fn test_longitude() {
-        assert_equalish(Longitude::from_value(45.0).unwrap().value(), 45.0);
-        assert_equalish(Longitude::from_value(-180.0).unwrap().value(), -180.0);
-        assert!(Longitude::from_value(181.0).is_err());
+        assert_equalish(Point::new(45.0, 45.0).unwrap().longitude, 45.0);
+        assert_equalish(Point::new(45.0, -180.0).unwrap().longitude, -180.0);
+        assert!(Point::new(45.0, -181.0).is_err());
     }
 
     #[test]
     fn test_point() {
         let point = Point::new(45.0, 90.0).unwrap();
-        assert_equalish(point.latitude(), 45.0);
-        assert_equalish(point.longitude(), 90.0);
+        assert_equalish(point.latitude, 45.0);
+        assert_equalish(point.longitude, 90.0);
     }
 
     #[test]

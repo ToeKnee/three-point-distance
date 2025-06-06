@@ -1,4 +1,8 @@
-//#![warn(missing_docs)]
+//! This is a simple program that loads a list of 3x Lat/Lng pairs from a file
+//! It will calculate the total distance between each triplet of points
+//! and print some benchmarks to the console
+
+#![warn(missing_docs)]
 #![warn(clippy::all)]
 #![warn(clippy::pedantic)]
 #![warn(clippy::complexity)]
@@ -6,9 +10,6 @@
 #![warn(clippy::perf)]
 #![warn(clippy::style)]
 
-/// This is a simple program that loads a list of 3x Lat/Lng pairs from a file
-/// It will calculate the total distance between each triplet of points
-/// and print some benchmarks to the console
 pub mod distance;
 
 use std::fs::File;
