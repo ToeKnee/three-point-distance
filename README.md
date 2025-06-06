@@ -9,10 +9,12 @@ The goal is to calculate the distance between each triplet of points in the arra
 - Python
 - Rust
 - JavaScript
+- Magnus less efficient (Move lots of Point objects between Rust and Ruby and back again)
+- Magnus more efficient (Move only arrays of floats between Rust and Ruby)
+- Python generator (to stream from disk and not load the entire file into memory)
 
 ### TODO:
 
-- Magnus
 - Pyo3 (maturin develop/build --release)
 - WASM
 
@@ -24,26 +26,14 @@ The goal is to calculate the distance between each triplet of points in the arra
 
 ## Usage
 
-```bash
-# Generate the data
-cd data
-python3 generate_data.py
-cd ..
+Run `./run.sh` to compile, test and run the code in all languages non-browser languages.
 
-cd rust
-cargo run --release
-cd ..
+### To run the browser version:
 
-cd ruby
-ruby main.rb
-cd ..
-
-cd python
-python3 main.py
-cd ..
-
+```
 cd javascript
-python3 -m http.server
-open http://localhost:8000
+python3 -m http.server 8000
 cd ..
 ```
+
+Then open `http://localhost:8000` in your browser.
