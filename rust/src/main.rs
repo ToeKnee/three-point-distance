@@ -48,7 +48,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let total_distance = calculate_total_distance(&points);
     let elapsed = now.elapsed();
     println!(
-        "Calculated total distance of {total_distance:.6} km in {:.6?} seconds",
+        "Calculated total distance of {total_distance:.5} km in {:.6?} seconds",
         elapsed.as_secs_f64()
     );
 
