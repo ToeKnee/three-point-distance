@@ -27,8 +27,6 @@ class Point
 
     r * c
   end
-
-
 end
 
 def to_radians(value)

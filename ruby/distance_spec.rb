@@ -41,5 +41,4 @@ RSpec.describe Point do
       ])).to be_within(0.1).of(536.74756) # Distance in km
     end
   end
-
 end
