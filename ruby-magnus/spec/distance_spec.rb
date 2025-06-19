@@ -40,5 +40,14 @@ RSpec.describe Point do
         [point4, point5, point6]
       ])).to be_within(0.1).of(536.74756) # Distance in km
     end
+
+    describe '#calculate_total_distance_from_array' do
+      it 'calculates the total distance between an an array of three lat lng pairs' do
+        expect(calculate_total_distance_from_array([
+          [[45.0, 90], [46.0, 91.0], [47.0, 92.0]],
+          [[48.0, 93.0], [49.0, 94.0], [50.0, 95.0]]
+        ])).to be_within(0.1).of(536.74756) # Distance in km
+      end
+    end
   end
 end

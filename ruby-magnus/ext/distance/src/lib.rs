@@ -1,7 +1,6 @@
 //! This library provides functionality to calculate distances between geographical points
 //! It exposes a Rust implemtation of the Haversine formula to Ruby
 
-#![warn(missing_docs)]
 #![warn(clippy::all)]
 #![warn(clippy::pedantic)]
 #![warn(clippy::complexity)]

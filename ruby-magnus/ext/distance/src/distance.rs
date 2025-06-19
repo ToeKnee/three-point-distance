@@ -2,6 +2,7 @@
 //! using the Haversine formula.
 //!
 //! This is based on the original code from the `three-point-distance` crate. But has been adapted for magnus.
+#![warn(missing_docs)]
 
 use magnus::{
     scan_args::{get_kwargs, scan_args},

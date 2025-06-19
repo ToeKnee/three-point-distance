@@ -5,7 +5,6 @@ require './lib/distance'
 file_path = "../data/points-10000000.json"
 # file_path = "../data/points-10000000.json"
 
-puts ""
 puts "Parse JSON in Ruby, but create Point objects in Rust. Calculate total distance in Rust."
 s = Time.now
 file_contents = File.read(file_path)
