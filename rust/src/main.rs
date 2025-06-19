@@ -27,7 +27,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let file = File::open(path)?;
     let reader = BufReader::new(file);
 
-    // Read the JSON contents of the file as an instance of `User`.
+    // Read the JSON contents of the file as an instance of `Point`.
     let points: Vec<Vec<Point>> = match serde_json::from_reader(reader) {
         Ok(points) => points,
         Err(e) => {
@@ -45,7 +45,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Calculate the distance between each triplet of points
     // and print the total distance
     let now = Instant::now();
-    let total_distance = calculate_total_distance(&points);
+    let total_distance = calculate_total_distance(&points).unwrap();
     let elapsed = now.elapsed();
     println!(
         "Calculated total distance of {total_distance:.5} km in {:.6?} seconds",

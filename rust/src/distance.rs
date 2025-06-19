@@ -79,20 +79,27 @@ pub fn calculate_distance(p1: &Point, p2: &Point, p3: &Point) -> f64 {
 }
 
 /// Calculate the total distance for a list of triplets of points.
-#[must_use]
-pub fn calculate_total_distance(points: &[Vec<Point>]) -> f64 {
+///
+/// # Arguments
+/// * `points` - A slice of vectors, where each vector contains exactly three `Point` instances.
+///
+/// # Returns
+/// * `Ok(f64)` - The total distance calculated for all triplets.
+///
+/// # Errors
+/// * If any triplet does not contain exactly three points, an error is returned.
+pub fn calculate_total_distance(points: &[Vec<Point>]) -> Result<f64, String> {
     let mut total_distance = 0.0;
     for triplet in points {
         if triplet.len() != 3 {
-            eprintln!("Error: triplet must contain exactly 3 points");
-            return -1.0;
+            return Err("triplet must contain exactly 3 points".to_string());
         }
         let p1 = &triplet[0];
         let p2 = &triplet[1];
         let p3 = &triplet[2];
         total_distance += calculate_distance(p1, p2, p3);
     }
-    total_distance
+    Ok(total_distance)
 }
 
 #[cfg(test)]
@@ -152,6 +159,6 @@ mod tests {
         let p6 = Point::new(50.0, 95.0).unwrap();
         let points = vec![vec![p1, p2, p3], vec![p4, p5, p6]];
         let total_distance = calculate_total_distance(&points);
-        assert_equalish(total_distance, 536.74756);
+        assert_equalish(total_distance.unwrap(), 536.74756);
     }
 }
