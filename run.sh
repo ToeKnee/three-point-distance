@@ -35,6 +35,11 @@ clear
 clear
 
 echo ""
+echo "Running the plain language implementations..."
+echo ""
+
+
+echo ""
 echo "🔻 Running Ruby project..."
 cd ruby
 measure_memory "ruby main.rb"
@@ -56,15 +61,32 @@ measure_memory "./target/release/three-point-distance"
 cd ..
 
 echo ""
+echo ""
+echo "Running the language + rust implementations..."
+echo ""
+
+echo ""
 echo "🔻⚙️ Running Ruby-Magnus project..."
 cd ruby-magnus
 measure_memory "ruby less_efficient.rb"
+echo ""
 measure_memory "ruby more_efficient.rb"
 cd ..
 
+echo ""
+echo "🐍⚙️ Running Python Py03 project..."
+cd py03
+measure_memory "pipenv run python less_efficient.py"
+echo ""
+measure_memory "pipenv run python more_efficient.py"
+cd ..
 
 echo ""
-echo "🐍 Running Python Generator project..."
+echo ""
+echo "Running the Python generator implementation -- no rust..."
+
+echo ""
+echo "🐍 Running Pure Python project, but using a generator instead of a list comprehension..."
 cd python_generator
 measure_memory "python3 main.py"
 cd ..

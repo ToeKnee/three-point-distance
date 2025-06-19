@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e # Exit on error
+
 echo ""
 echo "🔻 Testing Ruby project..."
 cd ruby
@@ -24,9 +26,21 @@ cd ruby-magnus
 rspec spec/distance_spec.rb
 cd ..
 
-
 echo ""
 echo "🐍 Testing Python Generator project..."
 cd python_generator
 python3 distance_test.py
+cd ..
+
+echo ""
+echo "🐍 Testing Py03 project..."
+cd py03
+cargo test
+pipenv run python distance_test.py
+cd ..
+
+echo ""
+echo "🌐⚙️ Testing WASM project..."
+cd javascript_and_wasm
+cargo test
 cd ..

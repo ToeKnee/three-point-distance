@@ -1,6 +1,7 @@
 import itertools
 import json
 import random
+import os
 
 def generate_lat_lng():
     lat = random.uniform(-90, 90)
@@ -27,6 +28,11 @@ def main(n=100000000):
             [generate_lat_lng(), generate_lat_lng(), generate_lat_lng()]
             for i in range(0, n)
     )
+
+    # If the file already exists, skip writing to it
+    if os.path.exists(f"points-{n}.json"):
+        print(f"File points-{n}.json already exists. Skipping generation.")
+        return
     with open(f"points-{n}.json", "w") as f:
         iter_json = json.JSONEncoder().iterencode(SerializableGenerator(data))
         for chunk in iter_json:

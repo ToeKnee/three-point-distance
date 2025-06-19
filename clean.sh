@@ -12,3 +12,18 @@ echo "🔻⚙️ Cleaning Ruby Magnus project..."
 cd ruby-magnus
 rake clobber
 cd ..
+
+echo ""
+echo "🐍⚙️ Cleaning Py03 project..."
+cd py03
+cargo clean
+rm -rf target
+cd ..
+
+
+echo ""
+echo "🌐⚙️ Cleaning WASM project..."
+cd javascript_and_wasm
+cargo clean
+rm -rf pkg
+cd ..
