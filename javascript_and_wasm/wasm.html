@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Three Point Disatnce WASM</title>
+    </head>
+    <body>
+        <script type="module">
+            import init, { main } from "./pkg/wasm.js";
+
+            init().then(() => {
+                main().then((value) => {
+                    console.log("WASM Result:", value);
+                });
+            });
+        </script>
+
+        Check the console for output.
+        <br />
+        This is the WASM version of the Three Point Distance example.
+        <br />
+        <a href="index.html">Here is the plain JS Version</a>
+    </body>
+</html>

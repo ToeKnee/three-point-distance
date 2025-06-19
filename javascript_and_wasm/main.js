@@ -42,22 +42,34 @@ function calculate_total_distance(points) {
 }
 
 async function loadPoints() {
-  const start = Date.now();
-  console.warn("Max load of 1000000 points - larger amounts won't load");
   const data = await fetch("http://127.0.0.1:8000/points-1000000.json");
   const points = await data.json();
-  const end = Date.now();
-  console.log(`Loaded ${points.length} rows of 3 points from JSON in ${(end - start) / 1000} seconds`);
+
   return points;
 }
 
 async function main() {
-  const points = await loadPoints();
-
   let start = Date.now();
-  let total_distance = calculate_total_distance(points);
+  console.warn("Max load of 1000000 points - larger amounts won't load");
+  let points = await loadPoints();
   let end = Date.now();
+  console.log(`Loaded ${points.length} rows of 3 points from JSON in ${(end - start) / 1000} seconds`);
+
+  start = Date.now();
+  let total_distance = calculate_total_distance(points);
+  end = Date.now();
   console.log(`Calculated total distance of ${total_distance} km in ${(end - start) / 1000} seconds`);
+
+  console.log(
+    "Run the load and calculate 10 times to simulate the amount of data processes in the non-browser versions.",
+  );
+
+  start = Date.now();
+  for (let i = 0; i < 10; i++) {
+    points = await loadPoints();
+  }
+  end = Date.now();
+  console.log(`Loaded ${points.length} rows of 3 points from JSON in ${(end - start) / 1000} seconds - 10 times`);
 
   start = Date.now();
   total_distance = 0;
