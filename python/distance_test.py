@@ -7,8 +7,8 @@ class TestPoint(unittest.TestCase):
     def test_point_initialization(self):
         # Test valid initialization
         p = Point(45.0, 90.0)
-        assert p.x == 45.0
-        assert p.y == 90.0
+        assert p.latitude == 45.0
+        assert p.longitude == 90.0
 
         # Test invalid latitude
         try:

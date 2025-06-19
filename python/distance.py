@@ -1,20 +1,20 @@
 from math import radians, sin, cos, sqrt, atan2
 
 class Point:
-    def __init__(self, x, y):
-        if not (-90 <= x <= 90):
-            raise ValueError(f"Latitude {x} is out of bounds")
-        if not (-180 <= y <= 180):
-            raise ValueError(f"Longitude {y} is out of bounds")
-        self.x = x
-        self.y = y
+    def __init__(self, latitude, longitude):
+        if not (-90 <= latitude <= 90):
+            raise ValueError(f"Latitude {latitude} is out of bounds")
+        if not (-180 <= longitude <= 180):
+            raise ValueError(f"Longitude {longitude} is out of bounds")
+        self.latitude = latitude
+        self.longitude = longitude
 
     def distance(self, other):
         """Calculate the distance between two points using Haversine formula"""
 
         R = 6371.0  # Radius of the Earth in kilometers
-        lat1, lon1 = radians(self.x), radians(self.y)
-        lat2, lon2 = radians(other.x), radians(other.y)
+        lat1, lon1 = radians(self.latitude), radians(self.longitude)
+        lat2, lon2 = radians(other.latitude), radians(other.longitude)
         dlat = lat2 - lat1
         dlon = lon2 - lon1
         a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
