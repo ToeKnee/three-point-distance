@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e # Exit on error
+
 # Navigate to each directory and run the specified commands
 # This script assumes that you have Python, Ruby, Rust, and the necessary tools installed.
 
@@ -21,7 +23,7 @@ cd ..
 echo ""
 echo "🐍⚙️ Compiling Py03 project..."
 cd py03
-pipenv run install --dev
+pipenv run pipenv install --dev
 pipenv run maturin develop --release
 cd ..
 
