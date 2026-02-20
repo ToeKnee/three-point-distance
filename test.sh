@@ -23,6 +23,9 @@ cd ..
 echo ""
 echo "🔻⚙️ Testing Ruby-Magnus project..."
 cd ruby-magnus
+rbenv local 3.3.4
+bundle install
+rake compile
 rspec spec/distance_spec.rb
 cd ..
 
