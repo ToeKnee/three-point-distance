@@ -2,7 +2,7 @@
 class Point
   attr_accessor :latitude, :longitude
 
-  def initialize(latitude, longitude)
+  def initialize(latitude:, longitude:)
     raise ArgumentError, 'Latitude must be between -90 and 90' unless latitude.between?(-90, 90)
     raise ArgumentError, 'Longitude must be between -180 and 180' unless longitude.between?(-180, 180)
     @latitude = latitude

@@ -9,8 +9,8 @@ s = Time.now
 file_contents = File.read(file_path)
 parsed_data = JSON.parse(file_contents)
 points = parsed_data.map do |triplet|
-  triplet.map do |point|
-    Point.new(*point)
+  triplet.map do |latitude, longitude|
+    Point.new(latitude:, longitude:)
   end
 end
 puts "Loaded #{parsed_data.length} rows of 3 points from JSON in #{Time.now - s} seconds"
