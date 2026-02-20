@@ -100,10 +100,10 @@ pub fn calculate_distance(p1: &Point, p2: &Point, p3: &Point) -> f64 {
 pub fn calculate_total_distance<'py>(value: &Bound<'py, PyAny>) -> PyResult<f64> {
     // Convert a Python list of triplets of points into a rust vec of triplets of Points.
     let mut points: Vec<Vec<Point>> = Vec::new();
-    match value.downcast::<PyList>() {
+    match value.cast::<PyList>() {
         Ok(data) => {
             for item in data.iter() {
-                match item.downcast::<PyList>() {
+                match item.cast::<PyList>() {
                     Ok(triplet) => {
                         let mut point_triplet = Vec::new();
                         for point in triplet.iter() {
@@ -165,7 +165,7 @@ pub fn calculate_total_distance<'py>(value: &Bound<'py, PyAny>) -> PyResult<f64>
 pub fn calculate_total_distance_from_array<'py>(
     array_of_points: &Bound<'py, PyAny>,
 ) -> PyResult<f64> {
-    let array_of_points = match array_of_points.downcast::<PyList>() {
+    let array_of_points = match array_of_points.cast::<PyList>() {
         Ok(list) => list,
         Err(_) => {
             return Err(PyValueError::new_err(
@@ -175,7 +175,7 @@ pub fn calculate_total_distance_from_array<'py>(
     };
     let points = array_of_points
         .iter()
-        .map(|item| match item.downcast::<PyList>() {
+        .map(|item| match item.cast::<PyList>() {
             Ok(triplet) => {
                 let mut point_triplet = Vec::new();
                 for point in triplet.iter() {
