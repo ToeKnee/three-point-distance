@@ -1,6 +1,6 @@
 # Three Point Distance
 
-Load a large JSON encoded fileinto memory. The JSON file contains an array of three sets of coordinates. This is to represent an a->b, b->c calculation.
+Load a large JSON encoded file into memory. The JSON file contains an array of three sets of coordinates. This is to represent an a->b, b->c calculation.
 The goal is to calculate the distance between each triplet of points in the array and return the result as the sum of all distances.
 
 ## Versions
@@ -27,7 +27,7 @@ The goal is to calculate the distance between each triplet of points in the arra
 ### Notes:
 
 - The code aims to be similar accross languages.
-- The rust code does not attempt to do anything clever. It doesn't try to use any buffered reading/decoding or SIMD or other optimizations. It is meant to be a direct translation of the python/ruby code.
+- The code does not attempt to do anything clever. It doesn't try to use any buffered reading/decoding or SIMD or other optimizations. It is a naϊve translation of the same algorithm in each language.
 - The python code uses a list comprehension where it could use a generator expression. This would allow it to stream from disk and not load the entire file into memory - it's much quicker, but not a like for like comparison.
 
 ## Usage
@@ -43,7 +43,7 @@ python3 -m http.server 8000
 cd ..
 ```
 
-Then open `http://localhost:8000` in your browser.
+Then open `http://127.0.0.1:8000` in your browser and check the dev console.
 
 ## Results
 
