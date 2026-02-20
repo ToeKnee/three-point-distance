@@ -4,6 +4,9 @@ version = "0.1.0"
 description = "A sample project with wasm-pack"
 edition = "2024"
 
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = false
+
 [lib]
 crate-type = ["cdylib"]
 
