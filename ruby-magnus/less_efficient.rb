@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 require 'json'
 require './lib/distance'
 
 # Load and parse JSON file
-file_path = "../data/points-10000000.json"
+file_path = '../data/points-10000000.json'
 # file_path = "../data/points-10000000.json"
 
-puts "Parse JSON in Ruby, and create Point objects in Rust from Ruby. Calculate total distance in Rust."
-puts "This means we move every point between Rust and Ruby, and then back again."
+puts 'Parse JSON in Ruby, and create Point objects in Rust from Ruby. Calculate total distance in Rust.'
+puts 'This means we move every point between Rust and Ruby, and then back again.'
 s = Time.now
 file_contents = File.read(file_path)
 parsed_data = JSON.parse(file_contents)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rspec'
 require './distance'
 
@@ -36,9 +38,9 @@ RSpec.describe Point do
       point5 = Point.new(latitude: 49.0, longitude: 94.0)
       point6 = Point.new(latitude: 50.0, longitude: 95.0)
       expect(calculate_total_distance([
-        [point1, point2, point3],
-        [point4, point5, point6]
-      ])).to be_within(0.1).of(536.74756) # Distance in km
+                                        [point1, point2, point3],
+                                        [point4, point5, point6]
+                                      ])).to be_within(0.1).of(536.74756) # Distance in km
     end
   end
 end

@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'json'
 require './distance'
 
 # Load and parse JSON file
-file_path = "../data/points-10000000.json"
+file_path = '../data/points-10000000.json'
 # file_path = "../data/points-10000000.json"
 
 s = Time.now

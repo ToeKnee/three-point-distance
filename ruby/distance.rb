@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 class Point
   attr_accessor :latitude, :longitude
@@ -5,6 +6,7 @@ class Point
   def initialize(latitude:, longitude:)
     raise ArgumentError, 'Latitude must be between -90 and 90' unless latitude.between?(-90, 90)
     raise ArgumentError, 'Longitude must be between -180 and 180' unless longitude.between?(-180, 180)
+
     @latitude = latitude
     @longitude = longitude
   end
@@ -43,7 +45,7 @@ def calculate_total_distance(points)
   total_distance = 0.0
   points.each do |triplet|
     if triplet.length != 3
-      puts "Error: triplet must contain exactly 3 points"
+      puts 'Error: triplet must contain exactly 3 points'
       return -1.0
     end
     total_distance += calculate_distance(triplet[0], triplet[1], triplet[2])
