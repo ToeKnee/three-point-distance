@@ -6,6 +6,8 @@ function measure_memory {
         return 1
     fi
 
+
+if [ "$(uname -s)" == "Linux" ]; then
     # Run the command and capture its PID
     $1 &
     CMD_PID=$!
@@ -24,6 +26,9 @@ function measure_memory {
     done
     echo $MAX_MEM
     return 0
+else
+  $1
+fi
 }
 
 ./compile.sh && clear || { echo "compile.sh failed"; exit 1; }
