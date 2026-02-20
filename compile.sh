@@ -17,6 +17,8 @@ cd ..
 echo ""
 echo "🔻⚙️ Compiling Ruby Magnus project..."
 cd ruby-magnus
+rbenv local 3.3.4
+bundle install
 rake compile
 cd ..
 

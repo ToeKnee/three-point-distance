@@ -1,1 +1,3 @@
 /data/*.json
+/ruby-magnus/lib/distance/*.bundle
+/ruby-magnus/lib/distance/*.so

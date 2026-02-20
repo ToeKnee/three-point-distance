@@ -42,6 +42,7 @@ echo ""
 echo ""
 echo "🔻 Running Ruby project..."
 cd ruby
+rbenv local 3.3.4
 measure_memory "ruby main.rb"
 cd ..
 
