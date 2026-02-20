@@ -10,7 +10,7 @@
             import init, { main } from "./pkg/wasm.js";
 
             init().then(() => {
-                main().then((value) => {
+                main(1000000).then((value) => {
                     console.log("WASM Result:", value);
                 });
             });

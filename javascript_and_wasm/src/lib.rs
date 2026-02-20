@@ -18,9 +18,9 @@ use wasm_bindgen::prelude::*;
 use web_sys::console;
 use web_time::Instant;
 
-async fn load_json() -> Result<Vec<Vec<Point>>, JsValue> {
+async fn load_json(num_points: usize) -> Result<Vec<Vec<Point>>, JsValue> {
     // let url = "http://127.0.0.1:8000/points-10000000.json"; // Full dataset used in the rest of the examples, too big for the browser
-    let url = "http://127.0.0.1:8000/points-1000000.json"; // Same as regular JS
+    let url = format!("http://127.0.0.1:8000/points-{num_points}.json"); // Same as regular JS
     // let url = "http://127.0.0.1:8000/points-10.json"; // Quick test
     let response = match reqwest::get(url).await {
         Ok(resp) => resp,
@@ -54,10 +54,10 @@ async fn load_json() -> Result<Vec<Vec<Point>>, JsValue> {
 
 /// This is equivelent to the `main` function in the Rust binary. It loads the JSON from a URL instead of from disk.
 #[wasm_bindgen]
-pub async fn main() -> Result<f64, JsValue> {
+pub async fn main(num_points: usize) -> Result<f64, JsValue> {
     // This is where you can call your Rust functions or perform any initialization
     let now = Instant::now();
-    let mut points = load_json()
+    let mut points = load_json(num_points)
         .await
         .map_err(|e| JsValue::from_str(&format!("Error loading JSON: {:?}", e)))?;
     let elapsed = now.elapsed();
@@ -88,7 +88,7 @@ pub async fn main() -> Result<f64, JsValue> {
     let now = Instant::now();
 
     for _ in 0..10 {
-        points = load_json()
+        points = load_json(num_points)
             .await
             .map_err(|e| JsValue::from_str(&format!("Error loading JSON: {:?}", e)))?;
     }

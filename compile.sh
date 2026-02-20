@@ -30,6 +30,10 @@ cd ..
 echo ""
 echo "🌐⚙️ Compiling WASM project..."
 cd javascript_and_wasm
-cargo install wasm-pack
-wasm-pack build --target web --release
+cargo install wasm-bindgen-cli --locked
+echo "🛠️ Building the project..."
+cargo build --release  --target wasm32-unknown-unknown
+echo "📦 Generating bindings with wasm-bindgen..."
+wasm-bindgen ./target/wasm32-unknown-unknown/release/wasm.wasm --out-dir ./pkg  --target web
+echo "✅ WASM build complete."
 cd ..
